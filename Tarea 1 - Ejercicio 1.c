@@ -86,41 +86,25 @@ int main(void) {
 	}
 
 	}
+	//free(shipsG);
+	//free(crewMembersG);
 
-	int i;
-	for(i=0; i < ships_size;++i){
-		int j;
-		for(j = 0; j < shipsG->currentPeople; ++j){
-			shipsG->crew++;
-			free(shipsG->crew - 1);
-		}
-		free(shipsG->crew);
-		free(shipsG->name);
-		free(shipsG->owner);
-		shipsG++;
-		free(shipsG-1);
+	ship * index;
+	ship * end = shipsG + (ships_size - 1);
+	for(index=shipsG; index <= end;++index){
+		free(index->name);
+		free(index->owner);
+		free(index->crew);
 	}
-	int j;
-	for(j = 0; j < shipsG->currentPeople; ++j){
-				shipsG->crew++;
-				free(shipsG->crew - 1);
-			}
-	free(shipsG->crew);
-	free(shipsG->name);
-	free(shipsG->owner);
+	crewMember * crewIndex;
+	crewMember * crewEnd = crewMembersG + (crewMembers_size - 1);
+	for(crewIndex = crewMembersG; crewIndex <= crewEnd; ++crewIndex){
+		free(crewIndex->name);
+		free(crewIndex->role);
+		free(crewIndex->surname);
+	}
 	free(shipsG);
-	for(i = 0; i < crewMembers_size;++i){
-		free(crewMembersG->name);
-		free(crewMembersG->role);
-		free(crewMembersG->surname);
-		crewMembersG++;
-		free(crewMembersG-1);
-	}
-	free(crewMembersG->name);
-	free(crewMembersG->role);
-	free(crewMembersG->surname);
 	free(crewMembersG);
-
 	return EXIT_SUCCESS;
 }
 
@@ -154,6 +138,7 @@ void addShip(ship * ships){
 	scanf("%ms",&temp);
 	owner = (char *) malloc(getLength(temp) * sizeof(char));
 	strcpy(owner,temp);
+	free(temp);
 
 	// Ship's name
 
@@ -211,6 +196,7 @@ void addCrewMember(crewMember * crewMembers){
 		scanf("%ms",&temp);
 		name = (char *) malloc(getLength(temp) * sizeof(char));
 		strcpy(name,temp);
+		free(temp);
 
 
 	// Crew member's surname
@@ -219,6 +205,7 @@ void addCrewMember(crewMember * crewMembers){
 		scanf("%ms",&temp);
 		surname = (char *) malloc(getLength(temp) * sizeof(char));
 		strcpy(surname,temp);
+		free(temp);
 
 	// Crew member's role
 
